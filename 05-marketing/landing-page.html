@@ -649,7 +649,7 @@
                         </div>
                     </div>
                     <input type="hidden" id="codigo-pais" value="+58">
-                    <input type="tel" id="telefono" name="telefono" placeholder="### ### ####" style="flex: 1;">
+                    <input type="tel" id="telefono" name="telefono" placeholder="### ### ####" style="flex: 1;" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                 </div>
                 <div class="form-group">
                     <textarea id="comentario" name="comentario" rows="3" placeholder="¿Cuál es tu mayor dolor con leads? (opcional)"></textarea>
@@ -676,6 +676,14 @@
                     return;
                 }
                 document.getElementById('nombre').style.borderColor = '';
+                const telVal = document.getElementById('telefono').value.trim().replace(/\s/g, '');
+                if (telVal.length > 0 && telVal.length < 7) {
+                    document.getElementById('telefono').style.borderColor = '#ff4444';
+                    document.getElementById('telefono').placeholder = '⚠ Mínimo 7 dígitos';
+                    document.getElementById('telefono').focus();
+                    return;
+                }
+                document.getElementById('telefono').style.borderColor = '';
                 const btn = document.getElementById('submitBtn');
                 btn.textContent = 'Enviando...';
                 btn.disabled = true;

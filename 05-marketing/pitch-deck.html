@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Lord - Caso de Estudio Inmobiliaria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px 80px;
+            background: linear-gradient(135deg, #1a237e 0%, #0d1642 100%);
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* Slide 1 - Portada */
+        .slide-1 {
+            text-align: center;
+            background: linear-gradient(135deg, #1a237e 0%, #ff6f00 150%);
+        }
+        
+        .slide-1 h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .slide-1 h2 {
+            font-size: 1.8em;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .logo-tech {
+            font-size: 4em;
+            margin-bottom: 30px;
+        }
+        
+        /* Headers */
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        
+        h2 {
+            font-size: 1.5em;
+            color: #ff6f00;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-size: 1.3em;
+            color: #64b5f6;
+            margin-bottom: 15px;
+        }
+        
+        /* Content */
+        .content {
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 900px;
+        }
+        
+        .content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .content li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .content li::before {
+            content: "▸";
+            color: #ff6f00;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        /* Flow Diagrams */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .flow-box {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #ff6f00;
+            border-radius: 10px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .flow-box .icon {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #ff6f00;
+        }
+        
+        .flow-box.red {
+            border-color: #f44336;
+            background: rgba(244,67,54,0.1);
+        }
+        
+        .flow-box.green {
+            border-color: #4caf50;
+            background: rgba(76,175,80,0.1);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,111,0,0.3);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            color: #ff6f00;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* Comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .before, .after {
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .before {
+            background: rgba(244,67,54,0.15);
+            border: 2px solid #f44336;
+        }
+        
+        .after {
+            background: rgba(76,175,80,0.15);
+            border: 2px solid #4caf50;
+        }
+        
+        .before h3, .after h3 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        
+        .before h3 { color: #f44336; }
+        .after h3 { color: #4caf50; }
+        
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .tech-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(100,181,246,0.3);
+        }
+        
+        .tech-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        /* ROI Section */
+        .roi-box {
+            background: rgba(255,111,0,0.1);
+            border: 2px solid #ff6f00;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .roi-number {
+            font-size: 4em;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        /* CTA */
+        .cta-box {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-button {
+            background: #ff6f00;
+            color: #fff;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid #ff6f00;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .nav-btn:hover {
+            background: #ff6f00;
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+        
+        /* Print styles for PDF export */
+        @media print {
+            .slide {
+                display: block !important;
+                page-break-after: always;
+                height: auto;
+            }
+            .nav-controls, .slide-counter {
+                display: none;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide { padding: 30px; }
+            h1 { font-size: 2em; }
+            .stats-grid, .tech-grid { grid-template-columns: 1fr; }
+            .comparison { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- Slide 1: Portada -->
+        <div class="slide slide-1 active">
+            <div class="logo-tech">⚡🏠</div>
+            <h1>Automatización de Leads</h1>
+            <h2>para Inmobiliaria del Sol</h2>
+            <br><br>
+            <p style="font-size: 1.2em; opacity: 0.8;">Caso de Estudio</p>
+            <h2 style="margin-top: 10px;">Tech Lord AI Automation Agency</h2>
+        </div>
+        
+        <!-- Slide 2: El Cliente -->
+        <div class="slide">
+            <h1>👤 El Cliente</h1>
+            <div class="content">
+                <h2>Inmobiliaria del Sol</h2>
+                <ul>
+                    <li><strong>15 agentes</strong> de ventas activos</li>
+                    <li><strong>50+ propiedades</strong> en cartera</li>
+                    <li><strong>Lead sources:</strong> Facebook Ads, Instagram, TikTok, WhatsApp Business</li>
+                    <li><strong>Ubicación:</strong> Mercado competitivo, leads valiosos</li>
+                </ul>
+                <br>
+                <h3 style="color: #f44336;">💬 "Los leads se enfrían antes de que los llamemos"</h3>
+                <p style="margin-top: 20px; font-style: italic;">
+                    Cada minuto de espera = 10% menos probabilidad de conversión
+                </p>
+            </div>
+        </div>
+        
+        <!-- Slide 3: El Problema (Antes) -->
+        <div class="slide">
+            <h1>❌ El Problema: Antes</h1>
+            <h2>Flujo Manual - Lento y Perdidoso</h2>
+            
+            <div class="flow-diagram">
+                <div class="flow-box red">
+                    <span class="icon">📱</span>
+                    Lead en FB/IG/TikTok
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box red">
+                    <span class="icon">👤</span>
+                    Revisar celular
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box red">
+                    <span class="icon">📝</span>
+                    Copiar a Excel
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box red">
+                    <span class="icon">⏰</span>
+                    Esperar 2.5h
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box red">
+                    <span class="icon">😤</span>
+                    Lead perdido
+                </div>
+            </div>
+            
+            <div class="stats-grid" style="margin-top: 40px;">
+                <div class="stat-card">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Leads perdidos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2.5h</div>
+                    <div class="stat-label">Tiempo promedio respuesta</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$2,000</div>
+                    <div class="stat-label">Perdidos mensual en leads</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 4: La Solución (Después) -->
+        <div class="slide">
+            <h1>✅ La Solución: Después</h1>
+            <h2>Automatización 24/7 con Tech Lord</h2>
+            
+            <div class="flow-diagram">
+                <div class="flow-box green">
+                    <span class="icon">📱</span>
+                    Lead en FB/IG/TikTok
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box green">
+                    <span class="icon">⚡</span>
+                    Webhook
+                    <small style="display:block; font-size: 0.7em;">Instantáneo</small>
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box green">
+                    <span class="icon">🛡️</span>
+                    Validación
+                    <small style="display:block; font-size: 0.7em;">Anti-spam</small>
+                </div>
+                <span class="arrow">→</span>
+                <div class="flow-box green">
+                    <span class="icon">📊</span>
+                    Google Sheets
+                </div>
+                <span class="arrow">+</span>
+                <div class="flow-box green">
+                    <span class="icon">💬</span>
+                    WhatsApp Agente
+                </div>
+                <span class="arrow">+</span>
+                <div class="flow-box green">
+                    <span class="icon">📧</span>
+                    Email Cliente
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <div class="stat-number" style="color: #4caf50;">⏱️ 30 segundos</div>
+                <p style="font-size: 1.3em; margin-top: 10px;">Tiempo de respuesta total</p>
+                <p style="color: #ff6f00; font-size: 1.1em; margin-top: 15px;">🤖 Automatizado 24/7 - Sin intervención humana</p>
+            </div>
+        </div>
+        
+        <!-- Slide 5: Componentes Técnicos -->
+        <div class="slide">
+            <h1>🔧 Stack Tecnológico</h1>
+            <h2>Zero-Code, 100% Customizable</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <h3>Automation Engine</h3>
+                    <p style="font-size: 0.9em;">Motor de automatización</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📊</div>
+                    <h3>Google Sheets</h3>
+                    <p style="font-size: 0.9em;">CRM automático</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">💬</div>
+                    <h3>WhatsApp API</h3>
+                    <p style="font-size: 0.9em;">Notificación instantánea</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📧</div>
+                    <h3>Gmail</h3>
+                    <p style="font-size: 0.9em;">Email de confirmación</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                <p style="font-size: 1.2em;">
+                    <strong style="color: #64b5f6;">Sin código</strong> • 
+                    <strong style="color: #64b5f6;">100% customizable</strong> • 
+                    <strong style="color: #64b5f6;">Escalable</strong>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Slide 6: Resultados -->
+        <div class="slide">
+            <h1>📈 Resultados</h1>
+            <h2>Before vs After - Transformación Real</h2>
+            
+            <div class="comparison">
+                <div class="before">
+                    <h3>❌ ANTES (Manual)</h3>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li>⏰ 2.5 horas tiempo respuesta</li>
+                        <li>📉 40% leads perdidos</li>
+                        <li>🤖 50% leads son spam/bots falsos</li>
+                        <li>😫 Agentes frustrados revisando celulares</li>
+                        <li>💸 $2,000/mes desperdiciado</li>
+                    </ul>
+                </div>
+                <div class="after">
+                    <h3>✅ DESPUÉS (Automatizado)</h3>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li>⚡ 30 segundos tiempo respuesta</li>
+                        <li>📈 95% leads capturados</li>
+                        <li>😊 Agentes enfocados en vender</li>
+                        <li>💰 ROI 60% en primer mes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7: Flujo Detallado -->
+        <div class="slide">
+            <h1>🔄 El Flujo Detallado</h1>
+            <h2>Paso a paso: Desde el lead hasta la venta</h2>
+            
+            <div class="content" style="font-size: 1.1em;">
+                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #ff6f00;">
+                    <h3 style="color: #ff6f00;">1️⃣ TRIGGER</h3>
+                    <p>Nuevo lead completa formulario en Facebook/Instagram/TikTok Lead Ads</p>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #64b5f6;">
+                    <h3 style="color: #64b5f6;">2️⃣ VALIDACIÓN INTELIGENTE</h3>
+                    <p>Filtrado anti-spam: detecta emails falsos, bots y leads duplicados automáticamente</p>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #4caf50;">
+                    <h3 style="color: #4caf50;">3️⃣ ACCIÓN PARALELA</h3>
+                    <ul style="margin-top: 10px;">
+                        <li>📊 Guardar en Google Sheets (CRM automático - solo leads calificados)</li>
+                        <li>💬 WhatsApp al agente: "Nuevo lead: [Nombre] quiere ver [Propiedad]. Llama YA: [Teléfono]"</li>
+                        <li>📧 Email cliente: "Gracias [Nombre], un asesor te contactará en minutos"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Beneficios -->
+        <div class="slide">
+            <h1>🎯 Beneficios para el Negocio</h1>
+            
+            <div class="stats-grid" style="margin-top: 20px;">
+                <div class="stat-card">
+                    <div style="font-size: 3em;">⚡</div>
+                    <h3 style="color: #ff6f00; margin: 15px 0;">VELOCIDAD</h3>
+                    <p>Responder en segundos,<br>no en horas</p>
+                    <p style="color: #4caf50; font-size: 1.5em; margin-top: 10px;">+300% conversión</p>
+                </div>
+                <div class="stat-card">
+                    <div style="font-size: 3em;">📊</div>
+                    <h3 style="color: #ff6f00; margin: 15px 0;">ORGANIZACIÓN</h3>
+                    <p>CRM automático,<br>sin copiar datos</p>
+                    <p style="color: #4caf50; font-size: 1.5em; margin-top: 10px;">Zero errores</p>
+                </div>
+                <div class="stat-card">
+                    <div style="font-size: 3em;">📈</div>
+                    <h3 style="color: #ff6f00; margin: 15px 0;">ESCALABILIDAD</h3>
+                    <p>Manejar 100 leads<br>igual que 10</p>
+                    <p style="color: #4caf50; font-size: 1.5em; margin-top: 10px;">Sin contratar más</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 9: Inversión vs Retorno -->
+        <div class="slide">
+            <h1>💰 Inversión vs Retorno</h1>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;">
+                    <h3 style="color: #64b5f6;">💳 Costos</h3>
+                    <ul style="list-style: none; line-height: 2.2; margin-top: 20px;">
+                        <li><strong style="color: #ff6f00;">Setup único:</strong> $500</li>
+                        <li><strong style="color: #ff6f00;">Mantenimiento:</strong> $50/mes</li>
+                        <li><strong style="color: #ff6f00;">Total Año 1:</strong> ~$1,100</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(76,175,80,0.1); padding: 30px; border-radius: 15px; border: 2px solid #4caf50;">
+                    <h3 style="color: #4caf50;">💵 Retornos</h3>
+                    <ul style="list-style: none; line-height: 2.2; margin-top: 20px;">
+                        <li><strong style="color: #4caf50;">Leads recuperados:</strong> +35%</li>
+                        <li><strong style="color: #4caf50;">Ahorro mensual:</strong> $800+</li>
+                        <li><strong style="color: #4caf50;">ROI Año 1:</strong> 770%</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="roi-box" style="margin-top: 30px;">
+                <p style="font-size: 1.2em;">Payback period:</p>
+                <div class="roi-number">3 semanas</div>
+                <p style="font-size: 1.1em; margin-top: 10px;">La inversión se recupera en la primera venta cerrada gracias a la automatización</p>
+            </div>
+        </div>
+        
+        <!-- Slide 10: Por qué Tech Lord -->
+        <div class="slide">
+            <h1>🚀 ¿Por qué Tech Lord?</h1>
+            
+            <div class="content" style="font-size: 1.2em;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <h3 style="color: #ff6f00;">⚡ Especialistas</h3>
+                        <p style="margin-bottom: 20px;">Expertos en automatización enterprise. No somos agencia generalista.</p>
+                        
+                        <h3 style="color: #ff6f00;">⏱️ Rápidos</h3>
+                        <p style="margin-bottom: 20px;">Setup en 3-5 días. Tu automatización funciona esta semana.</p>
+                    </div>
+                    <div>
+                        <h3 style="color: #ff6f00;">🛠️ Soporte Continuo</h3>
+                        <p style="margin-bottom: 20px;">No te dejamos solo. Mantenimiento y mejoras incluidas.</p>
+                        
+                        <h3 style="color: #ff6f00;">🎯 Resultados</h3>
+                        <p style="margin-bottom: 20px;">Nos pagas cuando ves resultados. Tu éxito es nuestro éxito.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%); border-radius: 15px;">
+                    <p style="font-size: 1.5em; font-weight: bold;">
+                        "Transformamos tareas repetitivas en ventas concretas"
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 11: CTA -->
+        <div class="slide" style="text-align: center;">
+            <h1>🤝 Empecemos</h1>
+            <h2 style="margin-bottom: 40px;">¿Tu agencia pierde leads por lentitud?</h2>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; max-width: 700px; margin: 0 auto;">
+                <p style="font-size: 1.3em; margin-bottom: 30px;">
+                    Agenda una <strong style="color: #ff6f00;">demo gratuita</strong> de 15 minutos
+                </p>
+                <p style="font-size: 1.1em; opacity: 0.9; margin-bottom: 30px;">
+                    Analizamos tu flujo actual y te mostramos cómo automatizarlo
+                </p>
+                
+                <div style="margin-top: 40px; line-height: 2;">
+                    <p style="font-size: 1.2em;">📧 david@techlord.com</p>
+                    <p style="font-size: 1.2em;">💼 linkedin.com/in/david-techlord</p>
+                    <p style="font-size: 1.2em;">🌐 techlord.com</p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <button class="cta-button">¡Quiero automatizar mis leads!</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Navigation -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+    </div>
+    
+    <div class="slide-counter">
+        <span id="current">1</span> / <span id="total">11</span>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        // Touch support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextSlide();
+            if (touchEndX - touchStartX > 50) prevSlide();
+        });
+    </script>
+</body>
+</html>

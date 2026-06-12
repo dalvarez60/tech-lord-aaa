@@ -1,0 +1,43 @@
+{
+  "name": "Lead Capture Básico - Portfolio Demo",
+  "description": "Workflow template para landing page → Sheets → Notificación. Ideal para pymes.",
+  "nodes": [
+    {
+      "type": "n8n-nodes-base.httpTrigger",
+      "name": "HTTP Trigger (Form)",
+      "webhookId": "lead-form",
+      "path": "lead-capture"
+    },
+    {
+      "type": "n8n-nodes-base.googleSheets",
+      "name": "Save to Leads Sheet",
+      "operation": "append",
+      "sheetId": "YOUR_SHEET_ID"
+    },
+    {
+      "type": "n8n-nodes-base.telegram",
+      "name": "Notify Sales Team",
+      "operation": "sendMessage"
+    },
+    {
+      "type": "n8n-nodes-base.respondToWebhook",
+      "name": "Success Response",
+      "statusCode": 200,
+      "body": {"message": "Gracias, te contactamos pronto"}
+    }
+  ],
+  "connections": {
+    "HTTP Trigger (Form)": {
+      "main": [[{"node": "Save to Leads Sheet", "type": "main", "index": 0}]]
+    },
+    "Save to Leads Sheet": {
+      "main": [
+        [{"node": "Notify Sales Team", "type": "main", "index": 0}],
+        [{"node": "Success Response", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

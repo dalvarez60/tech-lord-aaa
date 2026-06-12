@@ -1,0 +1,37 @@
+# Credenciales y datos sensibles
+*.env
+.env
+.env.*
+secrets.json
+credentials.json
+
+# Configuraciones locales
+*.local
+config.local.*
+
+# n8n exports con credenciales
+*credentials*
+*-credentials.json
+
+# Airtable tokens
+airtable-token.txt
+api-keys.txt
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Node (por si se agrega después)
+node_modules/
+dist/
+.cache/
+
+# Logs
+*.log
+logs/

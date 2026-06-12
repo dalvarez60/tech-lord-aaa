@@ -638,8 +638,24 @@
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="tu@email.com" required>
                 </div>
-                <div class="form-group">
-                    <input type="tel" id="telefono" name="telefono" placeholder="Tu WhatsApp">
+                <div class="form-group" style="display: flex; gap: 8px;">
+                    <select id="codigo-pais" style="flex: 0 0 auto; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text); font-size: 1em; cursor: pointer;">
+                        <option value="+58">🇻🇪 +58</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+52">🇲🇽 +52</option>
+                        <option value="+54">🇦🇷 +54</option>
+                        <option value="+57">🇨🇴 +57</option>
+                        <option value="+56">🇨🇱 +56</option>
+                        <option value="+51">🇵🇪 +51</option>
+                        <option value="+593">🇪🇨 +593</option>
+                        <option value="+502">🇬🇹 +502</option>
+                        <option value="+503">🇸🇻 +503</option>
+                        <option value="+505">🇳🇮 +505</option>
+                        <option value="+506">🇨🇷 +506</option>
+                        <option value="+507">🇵🇦 +507</option>
+                        <option value="+34">🇪🇸 +34</option>
+                    </select>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Tu WhatsApp" style="flex: 1;">
                 </div>
                 <div class="form-group">
                     <textarea id="comentario" name="comentario" rows="3" placeholder="¿Cuál es tu mayor dolor con leads? (opcional)"></textarea>
@@ -664,7 +680,7 @@
                 const data = {
                     nombre: document.getElementById('nombre').value,
                     email: document.getElementById('email').value,
-                    telefono: document.getElementById('telefono').value,
+                    telefono: document.getElementById('codigo-pais').value + ' ' + document.getElementById('telefono').value,
                     comentario: document.getElementById('comentario').value,
                     fuente: 'Website-Landing'
                 };

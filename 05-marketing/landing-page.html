@@ -638,24 +638,18 @@
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="tu@email.com" required>
                 </div>
-                <div class="form-group" style="display: flex; gap: 8px;">
-                    <select id="codigo-pais" style="flex: 0 0 auto; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text); font-size: 1em; cursor: pointer; min-width: 110px;">
-                        <option value="+58">VE +58</option>
-                        <option value="+1">US +1</option>
-                        <option value="+52">MX +52</option>
-                        <option value="+54">AR +54</option>
-                        <option value="+57">CO +57</option>
-                        <option value="+56">CL +56</option>
-                        <option value="+51">PE +51</option>
-                        <option value="+593">EC +593</option>
-                        <option value="+502">GT +502</option>
-                        <option value="+503">SV +503</option>
-                        <option value="+505">NI +505</option>
-                        <option value="+506">CR +506</option>
-                        <option value="+507">PA +507</option>
-                        <option value="+34">ES +34</option>
-                    </select>
-                    <input type="tel" id="telefono" name="telefono" placeholder="412 345 6789" style="flex: 1;">
+                <div class="form-group" style="display: flex; gap: 8px; position: relative;">
+                    <div id="phone-selector" style="flex: 0 0 auto; position: relative; user-select: none;">
+                        <div id="phone-selected" style="display:flex; align-items:center; gap:6px; padding: 12px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text); font-size: 0.95em; cursor: pointer; min-width: 115px; white-space: nowrap;">
+                            <img id="selected-flag" src="https://flagcdn.com/w20/ve.png" width="20" height="14" style="border-radius:2px;">
+                            <span id="selected-code">+58</span>
+                            <span style="margin-left:auto; font-size:0.7em; opacity:0.7;">▼</span>
+                        </div>
+                        <div id="phone-dropdown" style="display:none; position:absolute; top:calc(100% + 4px); left:0; z-index:9999; background:#1e1e1e; border:1px solid rgba(255,255,255,0.15); border-radius:8px; min-width:200px; max-height:260px; overflow-y:auto; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                        </div>
+                    </div>
+                    <input type="hidden" id="codigo-pais" value="+58">
+                    <input type="tel" id="telefono" name="telefono" placeholder="### ### ####" style="flex: 1;">
                 </div>
                 <div class="form-group">
                     <textarea id="comentario" name="comentario" rows="3" placeholder="¿Cuál es tu mayor dolor con leads? (opcional)"></textarea>
@@ -716,5 +710,54 @@
         <p>© 2026 Tech Lord. Especialistas en automatización de leads para inmobiliarias.</p>
         <p style="margin-top: 10px; font-size: 0.9em;">Transformando tareas repetitivas en ventas concretas.</p>
     </footer>
+<script>
+    const countries = [
+        { code: '+58', iso: 've', name: 'Venezuela' },
+        { code: '+1',  iso: 'us', name: 'USA / Canada' },
+        { code: '+52', iso: 'mx', name: 'México' },
+        { code: '+54', iso: 'ar', name: 'Argentina' },
+        { code: '+57', iso: 'co', name: 'Colombia' },
+        { code: '+56', iso: 'cl', name: 'Chile' },
+        { code: '+51', iso: 'pe', name: 'Perú' },
+        { code: '+593',iso: 'ec', name: 'Ecuador' },
+        { code: '+502',iso: 'gt', name: 'Guatemala' },
+        { code: '+503',iso: 'sv', name: 'El Salvador' },
+        { code: '+505',iso: 'ni', name: 'Nicaragua' },
+        { code: '+506',iso: 'cr', name: 'Costa Rica' },
+        { code: '+507',iso: 'pa', name: 'Panamá' },
+        { code: '+1787',iso: 'pr', name: 'Puerto Rico' },
+        { code: '+34', iso: 'es', name: 'España' },
+        { code: '+55', iso: 'br', name: 'Brasil' },
+        { code: '+44', iso: 'gb', name: 'Reino Unido' },
+    ];
+
+    const dropdown = document.getElementById('phone-dropdown');
+    const selected = document.getElementById('phone-selected');
+    const selectedFlag = document.getElementById('selected-flag');
+    const selectedCode = document.getElementById('selected-code');
+    const hiddenInput = document.getElementById('codigo-pais');
+
+    countries.forEach(c => {
+        const item = document.createElement('div');
+        item.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background 0.15s;';
+        item.innerHTML = `<img src="https://flagcdn.com/w20/${c.iso}.png" width="20" height="14" style="border-radius:2px;flex-shrink:0;"><span style="flex:1;font-size:0.9em;color:#fff;">${c.name}</span><span style="font-size:0.85em;color:#aaa;">${c.code}</span>`;
+        item.addEventListener('mouseenter', () => item.style.background = 'rgba(255,255,255,0.08)');
+        item.addEventListener('mouseleave', () => item.style.background = 'transparent');
+        item.addEventListener('click', () => {
+            selectedFlag.src = `https://flagcdn.com/w20/${c.iso}.png`;
+            selectedCode.textContent = c.code;
+            hiddenInput.value = c.code;
+            dropdown.style.display = 'none';
+        });
+        dropdown.appendChild(item);
+    });
+
+    selected.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.addEventListener('click', () => { dropdown.style.display = 'none'; });
+</script>
 </body>
 </html>

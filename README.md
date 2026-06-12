@@ -5,6 +5,15 @@
 
 ---
 
+## 🌐 Demos en Vivo
+
+| Recurso | URL |
+|---------|-----|
+| **Landing Page** | [Ver Landing Page →](https://dalvarez60.github.io/tech-lord-aaa/05-marketing/landing-page.html) |
+| **Pitch Deck** | [Ver Pitch Deck →](https://dalvarez60.github.io/tech-lord-aaa/05-marketing/pitch-deck.html) |
+
+---
+
 ## Roadmap de Entrenamiento
 
 ### Fase 0: Fundamentos (Semana 1)
